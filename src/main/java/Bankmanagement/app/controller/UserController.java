@@ -1,45 +1,59 @@
 package Bankmanagement.app.controller;
 
+import Bankmanagement.app.model.User;
+import Bankmanagement.app.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import Bankmanagement.app.model.User;
-import Bankmanagement.app.service.UserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    UserService userService;
-
-    @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
-    }
-
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable int id) {
-        return userService.getUserById(id);
-    }
+    private UserService userService;
 
     @PostMapping("/add")
-    public User add(@RequestBody User user) {
-        return userService.addUser(user);
-    }
-
-    @PutMapping("/update/{id}")
-    public User update(@PathVariable int id, @RequestBody User dta) {
-        return userService.updateUser(id, dta);
+    public String addUser(@RequestBody User user) {
+        userService.addUser(user);
+        return user.getName() + " added successfully!";
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable int id) {
-        return userService.deleteUser(id);
+    public String deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
+        return "User deleted successfully!";
     }
 
-    @PutMapping("/rename/{id}")
-    public void rename(@PathVariable int id, String name) {
-        userService.renameUser(id, name);
+    @GetMapping
+    public List<User> getUsersRoot() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/all")
+    public List<User> getUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public String getEmail(@PathVariable int id) {
+        return userService.findEmail(id);
+    }
+
+    @PostMapping("/deposit")
+    public String deposit(@RequestParam String accountNumber,
+                          @RequestParam double amount) {
+        return userService.deposit(accountNumber, amount);
+    }
+
+    @PostMapping("/withdraw")
+    public String withdraw(@RequestParam String accountNumber,
+                           @RequestParam double amount) {
+        return userService.withdraw(accountNumber, amount);
+    }
+
+    @GetMapping("/balance")
+    public String checkBalance(@RequestParam String accountNumber) {
+        return userService.checkBalance(accountNumber);
     }
 }

@@ -1,22 +1,31 @@
 package Bankmanagement.app.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
+
+    @Id
     private int id;
+
     private String name;
+
     private String email;
-    private String accNo;
+
+    @Column(unique = true)
+    private String accountNumber;
+
     private double balance;
 
-    public User() {
-    }
-
-    public User(int id, String name, String email, String accNo, double balance) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.accNo = accNo;
-        this.balance = balance;
-    }
+    private String accountType;
 
     public int getId() {
         return id;
@@ -42,12 +51,12 @@ public class User {
         this.email = email;
     }
 
-    public String getAccNo() {
-        return accNo;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setAccNo(String accNo) {
-        this.accNo = accNo;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public double getBalance() {
@@ -56,5 +65,13 @@ public class User {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
     }
 }
