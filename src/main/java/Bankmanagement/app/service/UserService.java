@@ -35,17 +35,6 @@ public class UserService {
         bankRepo.save(user);
         return "Deposited " + amount + " | New Balance: " + user.getBalance();
     }
-
-    public String withdraw(String accountNumber, double amount) {
-        User user = bankRepo.findByAccountNumber(accountNumber);
-
-        if (user == null) return "Account not found!";
-        if (user.getBalance() < amount) return "Insufficient balance!";
-        user.setBalance(user.getBalance() - amount);
-        bankRepo.save(user);
-        return "Withdrawn " + amount + " | New Balance: " + user.getBalance();
-    }
-
     public String checkBalance(String accountNumber) {
         User user = bankRepo.findByAccountNumber(accountNumber);
         

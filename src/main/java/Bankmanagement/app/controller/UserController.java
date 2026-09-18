@@ -16,13 +16,13 @@ public class UserController {
     @PostMapping("/add")
     public String addUser(@RequestBody User user) {
         userService.addUser(user);
-        return user.getName() + " added successfully!";
+        return user.getName() + " added successfully";
     }
 
     @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
-        return "User deleted successfully!";
+        return "deleted successfully id:" + id ;
     }
 
     @GetMapping
@@ -44,12 +44,6 @@ public class UserController {
     public String deposit(@RequestParam String accountNumber,
                           @RequestParam double amount) {
         return userService.deposit(accountNumber, amount);
-    }
-
-    @PostMapping("/withdraw")
-    public String withdraw(@RequestParam String accountNumber,
-                           @RequestParam double amount) {
-        return userService.withdraw(accountNumber, amount);
     }
 
     @GetMapping("/balance")
